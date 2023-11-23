@@ -26,6 +26,10 @@ function activate(context) {
 		vscode.window.showInformationMessage('Hello World from colorpicker!');
 	});
 
+	/**
+	 * Command to demo simple inputbox to get a color name
+	 * Entered color name will be inserted in current file cursor location
+	 */
 	let insertColorDisposable = vscode.commands.registerCommand('colorpicker.insertColor', function () {
 		vscode.window.showInputBox({
 			prompt: 'Enter a color (e.g., #FF0000 or red)',
@@ -42,6 +46,11 @@ function activate(context) {
 		});
 	});
 
+	/**
+	 * Command to demo little complex or dynamic color picker to get a color name
+	 * This will be in form of a Dropdown list with filter inputbox
+	 * Selected color name will be inserted in current file cursor location
+	 */
 	let insertColorWithPickerDisposable = vscode.commands.registerCommand('colorpicker.insertColorWithPicker', function () {
 		vscode.window.showQuickPick(colorNames, {
 			placeHolder: 'Choose a color',
@@ -60,6 +69,11 @@ function activate(context) {
 		});
 	});
 
+	/**
+	 * Command to demo more dynamic color picker using WebView to get a color name
+	 * This will be in form of HTML 5 Color Palette using WebView
+	 * Selected color name will be inserted in current file cursor location from where the WebView was opened
+	 */
 	let colorPickerWebviewDisposable = vscode.commands.registerCommand('colorpicker.showAdvancedColorPicker', function () {
 		// Capture the current active text editor before the Webview takes focus
 		const activeTextEditor = vscode.window.activeTextEditor;

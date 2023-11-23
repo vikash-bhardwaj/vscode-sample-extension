@@ -37,6 +37,11 @@
         "command": "colorpicker.insertColorWithPicker",
         "key": "ctrl+alt+c",
         "when": "editorTextFocus"
+      },
+      {
+        "command": "colorpicker.showAdvancedColorPicker",
+        "key": "ctrl+alt+enter",
+        "when": "editorTextFocus"
       }
     ],
     "menus": {
@@ -44,6 +49,11 @@
         {
           "when": "editorTextFocus",
           "command": "colorpicker.insertColorWithPicker",
+          "group": "navigation"
+        },
+        {
+          "when": "editorTextFocus",
+          "command": "colorpicker.showAdvancedColorPicker",
           "group": "navigation"
         }
       ]
