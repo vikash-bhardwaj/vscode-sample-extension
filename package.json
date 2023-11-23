@@ -22,42 +22,8 @@
       {
         "command": "colorpicker.insertColor",
         "title": "Insert Color"
-      },
-      {
-        "command": "colorpicker.insertColorWithPicker",
-        "title": "Insert Color with Picker"
-      },
-      {
-        "command": "colorpicker.showAdvancedColorPicker",
-        "title": "Insert Color with Advanced Color Picker"
       }
-    ],
-    "keybindings": [
-      {
-        "command": "colorpicker.insertColorWithPicker",
-        "key": "ctrl+alt+c",
-        "when": "editorTextFocus"
-      },
-      {
-        "command": "colorpicker.showAdvancedColorPicker",
-        "key": "ctrl+alt+enter",
-        "when": "editorTextFocus"
-      }
-    ],
-    "menus": {
-      "editor/context": [
-        {
-          "when": "editorTextFocus",
-          "command": "colorpicker.insertColorWithPicker",
-          "group": "navigation"
-        },
-        {
-          "when": "editorTextFocus",
-          "command": "colorpicker.showAdvancedColorPicker",
-          "group": "navigation"
-        }
-      ]
-    }
+    ]
   },
   "scripts": {
     "lint": "eslint .",

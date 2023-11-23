@@ -1,8 +1,6 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 const vscode = require('vscode');
-const colorNames = require("./src/colornames");
-const getWebviewContent = require("./src/webviewUtil");
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
@@ -46,86 +44,7 @@ function activate(context) {
 		});
 	});
 
-	/**
-	 * Command to demo little complex or dynamic color picker to get a color name
-	 * This will be in form of a Dropdown list with filter inputbox
-	 * Selected color name will be inserted in current file cursor location
-	 */
-	let insertColorWithPickerDisposable = vscode.commands.registerCommand('colorpicker.insertColorWithPicker', function () {
-		vscode.window.showQuickPick(colorNames, {
-			placeHolder: 'Choose a color',
-			matchOnDescription: true,
-			matchOnDetail: true
-		}).then((selectedColor) => {
-			if (selectedColor) {
-				const editor = vscode.window.activeTextEditor;
-				if (editor) {
-					editor.edit((editBuilder) => {
-						console.info("Color Picker :: Selected Color by user: ", selectedColor);
-						editBuilder.insert(editor.selection.start, selectedColor.detail);
-					});
-				}
-			}
-		});
-	});
-
-	/**
-	 * Command to demo more dynamic color picker using WebView to get a color name
-	 * This will be in form of HTML 5 Color Palette using WebView
-	 * Selected color name will be inserted in current file cursor location from where the WebView was opened
-	 */
-	let colorPickerWebviewDisposable = vscode.commands.registerCommand('colorpicker.showAdvancedColorPicker', function () {
-		// Capture the current active text editor before the Webview takes focus
-		const activeTextEditor = vscode.window.activeTextEditor;
-
-		// Create and show a new webview
-		const panel = vscode.window.createWebviewPanel(
-			'colorPickerWebview', // Identifies the type of the webview. Used internally
-			'Advanced Color Picker', // Title of the panel displayed to the user
-			vscode.ViewColumn.Beside, // Open beside the current active editor
-			{
-				// Enable scripts in the webview
-				enableScripts: true
-			}
-		);
-
-		// And set its HTML content
-		panel.webview.html = getWebviewContent();
-
-		// Handle messages from the webview
-		const messageHandler = panel.webview.onDidReceiveMessage(
-			message => {
-				// Display a message box to the user
-				vscode.window.showInformationMessage("Message received from WebView");
-
-				switch (message.command) {
-					case 'insertColor':
-						if (activeTextEditor) {
-							const selection = activeTextEditor.selection;
-							const range = new vscode.Range(selection.start, selection.end);
-							activeTextEditor.edit(editBuilder => {
-								editBuilder.replace(range, message.color);
-							}).then(success => {
-								if (success) {
-									// If the edit was successful, reveal the line where the color was inserted
-									activeTextEditor.revealRange(range);
-								}
-							});
-						}
-						break;
-				}
-			},
-			undefined,
-			context.subscriptions
-		);
-
-		// Clean up when the Webview panel is disposed
-		panel.onDidDispose(() => {
-			messageHandler.dispose();
-		}, null, context.subscriptions);
-	});
-
-	context.subscriptions.push(disposable, insertColorDisposable, insertColorWithPickerDisposable, colorPickerWebviewDisposable);
+	context.subscriptions.push(disposable, insertColorDisposable);
 }
 
 // This method is called when your extension is deactivated
