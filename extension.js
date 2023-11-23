@@ -3,6 +3,7 @@
 const vscode = require('vscode');
 const colorNames = require("./src/colornames");
 const getWebviewContent = require("./src/webviewUtil");
+const getUncommittedFiles = require("./src/utils");
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
@@ -125,7 +126,29 @@ function activate(context) {
 		}, null, context.subscriptions);
 	});
 
-	context.subscriptions.push(disposable, insertColorDisposable, insertColorWithPickerDisposable, colorPickerWebviewDisposable);
+	/**
+	 * Command to demo the GIT Integration
+	 * Command will find all uncommitted files from GIT and show in QuickPick List
+	 * Selecting the file will open that file in the editor
+	 */
+	let gitUntrackedFilesDisposable = vscode.commands.registerCommand('extension.showUncommittedFiles', async () => {
+		const files = await getUncommittedFiles(vscode);
+		vscode.window.showQuickPick(files, {
+			placeHolder: 'Select an uncommitted file to open',
+		}).then(selectedFile => {
+			if (selectedFile) {
+				vscode.window.showTextDocument(vscode.Uri.file(selectedFile));
+			}
+		});
+	});
+
+	context.subscriptions.push(
+		disposable,
+		insertColorDisposable,
+		insertColorWithPickerDisposable,
+		colorPickerWebviewDisposable,
+		gitUntrackedFilesDisposable
+	);
 }
 
 // This method is called when your extension is deactivated

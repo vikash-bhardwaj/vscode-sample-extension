@@ -30,6 +30,10 @@
       {
         "command": "colorpicker.showAdvancedColorPicker",
         "title": "Insert Color with Advanced Color Picker"
+      },
+      {
+        "command": "extension.showUncommittedFiles",
+        "title": "Show GIT Uncommitted Files"
       }
     ],
     "keybindings": [
