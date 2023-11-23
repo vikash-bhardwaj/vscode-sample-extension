@@ -20,48 +20,10 @@
         "title": "Hello World"
       },
       {
-        "command": "colorpicker.insertColor",
-        "title": "Insert Color"
-      },
-      {
-        "command": "colorpicker.insertColorWithPicker",
-        "title": "Insert Color with Picker"
-      },
-      {
-        "command": "colorpicker.showAdvancedColorPicker",
-        "title": "Insert Color with Advanced Color Picker"
-      },
-      {
         "command": "extension.showUncommittedFiles",
         "title": "Show GIT Uncommitted Files"
       }
-    ],
-    "keybindings": [
-      {
-        "command": "colorpicker.insertColorWithPicker",
-        "key": "ctrl+alt+c",
-        "when": "editorTextFocus"
-      },
-      {
-        "command": "colorpicker.showAdvancedColorPicker",
-        "key": "ctrl+alt+p",
-        "when": "editorTextFocus"
-      }
-    ],
-    "menus": {
-      "editor/context": [
-        {
-          "when": "editorTextFocus",
-          "command": "colorpicker.insertColorWithPicker",
-          "group": "navigation"
-        },
-        {
-          "when": "editorTextFocus",
-          "command": "colorpicker.showAdvancedColorPicker",
-          "group": "navigation"
-        }
-      ]
-    }
+    ]
   },
   "scripts": {
     "lint": "eslint .",
