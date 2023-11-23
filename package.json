@@ -40,7 +40,7 @@
       },
       {
         "command": "colorpicker.showAdvancedColorPicker",
-        "key": "ctrl+alt+enter",
+        "key": "ctrl+alt+p",
         "when": "editorTextFocus"
       }
     ],
